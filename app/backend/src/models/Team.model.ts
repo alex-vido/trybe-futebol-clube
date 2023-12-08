@@ -1,6 +1,6 @@
 import TeamInterface from '../Interfaces/TeamInterface';
 import ITeamModel from '../Interfaces/ITeamModel';
-import TeamsModel from '../database/models/teams.model';
+import TeamsModel from '../database/models/Team.model';
 
 export default class TeamModel implements ITeamModel {
   private model = TeamsModel;

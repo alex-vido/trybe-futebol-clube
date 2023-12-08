@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 import { Teams, Team } from './mocks/Team.mock';
-import TeamModel from '../database/models/teams.model';
+import TeamModel from '../database/models/Team.model';
 
 describe('Teams Test', function() {
 
