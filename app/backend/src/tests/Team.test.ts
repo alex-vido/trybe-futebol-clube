@@ -13,9 +13,9 @@ const { expect } = chai;
 import { Teams } from './mocks/Team.mock';
 import TeamModel from '../database/models/teams.model';
 
-describe('Books Test', function() {
+describe('Teams Test', function() {
 
-  it('should return all books', async function() {
+  it('should return all Teams', async function() {
 
     sinon.stub(TeamModel, 'findAll').resolves(Teams as any);
 
