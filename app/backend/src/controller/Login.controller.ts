@@ -10,4 +10,9 @@ export default class LoginController {
     if (!token) return res.status(401).json({ message: 'Invalid email or password' });
     return res.status(200).json({ token });
   }
+
+  static getRole = (req: Request, res: Response) => {
+    const { role } = req.body;
+    return res.status(200).json({ role });
+  };
 }
