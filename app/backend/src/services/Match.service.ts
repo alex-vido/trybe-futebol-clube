@@ -1,3 +1,4 @@
+import MatchInterface from '../Interfaces/MatchInterface';
 import MatchModel from '../models/Match.model';
 
 export default class MatchService {
@@ -17,5 +18,9 @@ export default class MatchService {
 
   public async finishMatch(id: number) {
     await this.model.finishMatch(id);
+  }
+
+  public async updateMatch(id: number, match: MatchInterface) {
+    await this.model.updateMatch(id, match);
   }
 }

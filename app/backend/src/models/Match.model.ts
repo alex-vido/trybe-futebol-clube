@@ -29,4 +29,8 @@ export default class MatchModel implements IMatchModel {
   async finishMatch(id: number): Promise<void> {
     await this.matchModel.update({ inProgress: false }, { where: { id } });
   }
+
+  async updateMatch(id: number, match: MatchInterface): Promise<void> {
+    await this.matchModel.update(match, { where: { id } });
+  }
 }
