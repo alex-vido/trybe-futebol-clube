@@ -3,13 +3,16 @@ import {
   DataTypes,
   InferAttributes,
   InferCreationAttributes,
+  CreationOptional,
 } from 'sequelize';
 
 import db from '.';
 
+import TeamModel from './Team.model';
+
 export default class MatchModel extends Model<InferAttributes<MatchModel>,
 InferCreationAttributes<MatchModel>> {
-  declare id: number;
+  declare id: CreationOptional<number>;
   declare homeTeamId: number;
   declare homeTeamGoals: number;
   declare awayTeamId: number;
@@ -55,3 +58,6 @@ MatchModel.init({
   timestamps: false,
   underscored: true,
 });
+
+MatchModel.belongsTo(TeamModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+MatchModel.belongsTo(TeamModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
