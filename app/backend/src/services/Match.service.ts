@@ -1,3 +1,4 @@
+import IMatchCreate from '../Interfaces/ICreateMatch';
 import MatchInterface from '../Interfaces/MatchInterface';
 import MatchModel from '../models/Match.model';
 
@@ -22,5 +23,10 @@ export default class MatchService {
 
   public async updateMatch(id: number, match: MatchInterface) {
     await this.model.updateMatch(id, match);
+  }
+
+  public async createMatch(match: IMatchCreate): Promise<MatchInterface> {
+    const newMatch = await this.model.createMatch(match);
+    return newMatch;
   }
 }

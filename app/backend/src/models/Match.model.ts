@@ -3,6 +3,7 @@ import MatchDatabaseModel from '../database/models/Match.model';
 import TeamModel from './Team.model';
 import IMatchModel from '../Interfaces/IMatchModel';
 import MatchInterface from '../Interfaces/MatchInterface';
+import IMatchCreate from '../Interfaces/ICreateMatch';
 
 export default class MatchModel implements IMatchModel {
   private matchModel = MatchDatabaseModel;
@@ -32,5 +33,23 @@ export default class MatchModel implements IMatchModel {
 
   async updateMatch(id: number, match: MatchInterface): Promise<void> {
     await this.matchModel.update(match, { where: { id } });
+  }
+
+  async isTeamExists(homeTeamId: number, awayTeamId: number): Promise<boolean> {
+    const homeTeamData = await this.teamModel.findById(homeTeamId);
+    const awayTeamData = await this.teamModel.findById(awayTeamId);
+
+    if (!homeTeamData || !awayTeamData) {
+      throw new Error('There is no team with such id!');
+    }
+
+    return true;
+  }
+
+  async createMatch(match: IMatchCreate): Promise<MatchInterface> {
+    const { homeTeamId, awayTeamId } = match;
+    await this.isTeamExists(homeTeamId, awayTeamId);
+    const newMatch = await this.matchModel.create({ ...match, inProgress: true });
+    return newMatch;
   }
 }
