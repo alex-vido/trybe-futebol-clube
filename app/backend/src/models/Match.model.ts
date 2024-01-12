@@ -4,6 +4,7 @@ import TeamModel from './Team.model';
 import IMatchModel from '../Interfaces/IMatchModel';
 import MatchInterface from '../Interfaces/MatchInterface';
 import IMatchCreate from '../Interfaces/ICreateMatch';
+import NotFoundError from '../utils/NotFoundError';
 
 export default class MatchModel implements IMatchModel {
   private matchModel = MatchDatabaseModel;
@@ -40,7 +41,7 @@ export default class MatchModel implements IMatchModel {
     const awayTeamData = await this.teamModel.findById(awayTeamId);
 
     if (!homeTeamData || !awayTeamData) {
-      throw new Error('There is no team with such id!');
+      throw new NotFoundError('There is no team with such id!');
     }
 
     return true;

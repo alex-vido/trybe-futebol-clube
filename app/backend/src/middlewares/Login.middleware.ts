@@ -1,6 +1,8 @@
 import * as Joi from 'joi';
 import { NextFunction, Request, Response } from 'express';
 import LoginInterface from '../Interfaces/LoginInterface';
+import NotAuthorizatedError from '../utils/NotAuthorizatedError';
+import BadRequestError from '../utils/BadRequestError';
 
 const LoginSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -25,10 +27,11 @@ export default class LoginValidation {
 
   static validateLogin(req: Request, res: Response, next: NextFunction) {
     const LoginError = LoginValidation.validateFields(req.body);
-    if (LoginError) return res.status(400).json({ message: 'All fields must be filled' });
+    if (LoginError) throw new BadRequestError('All fields must be filled');
 
     const LoginValuesError = LoginValidation.validateValues(req.body);
-    if (LoginValuesError) return res.status(401).json({ message: 'Invalid email or password' });
+    if (LoginValuesError) throw new NotAuthorizatedError('Invalid email or password');
+
     next();
   }
 }
